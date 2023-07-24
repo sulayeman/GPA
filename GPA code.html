@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GPA Calculator</title>
+</head>
+
+<body>
+    <h1>GPA Calculator</h1>
+    <p>Enter up to 6 grades:</p>
+    <div>
+        <label for="grade1">Grade 1:</label>
+        <input type="text" id="grade1" required>
+    </div>
+    <div>
+        <label for="grade2">Grade 2:</label>
+        <input type="text" id="grade2">
+    </div>
+    <div>
+        <label for="grade3">Grade 3:</label>
+        <input type="text" id="grade3">
+    </div>
+    <div>
+        <label for="grade4">Grade 4:</label>
+        <input type="text" id="grade4">
+    </div>
+    <div>
+        <label for="grade5">Grade 5:</label>
+        <input type="text" id="grade5">
+    </div>
+    <div>
+        <label for="grade6">Grade 6:</label>
+        <input type="text" id="grade6">
+    </div>
+    <br>
+    <button onclick="calculateGPA()">Calculate GPA</button>
+    <br>
+    <p id="result"></p>
+
+    <script>
+        // GPA calculation function
+        function calculateGPA() {
+            const gradeInputs = [
+                document.getElementById("grade1").value.trim().toUpperCase(),
+                document.getElementById("grade2").value.trim().toUpperCase(),
+                document.getElementById("grade3").value.trim().toUpperCase(),
+                document.getElementById("grade4").value.trim().toUpperCase(),
+                document.getElementById("grade5").value.trim().toUpperCase(),
+                document.getElementById("grade6").value.trim().toUpperCase(),
+            ];
+
+            const gradePointsMap = {
+                "A": 4.0,
+                "A-": 3.66,
+                "B+": 3.3,
+                "B": 3.0,
+		"B-": 2.66,
+		"C+": 2.33,
+		"C": 2.0,
+		"C-": 1.66,
+		"D+": 1.33,
+		"D": 1.0,
+                // Add more grades and points as per your institution's GPA scale
+            };
+
+            let totalPoints = 0;
+            let validGrades = 0;
+
+            for (const grade of gradeInputs) {
+                if (grade !== "" && gradePointsMap.hasOwnProperty(grade)) {
+                    totalPoints += gradePointsMap[grade];
+                    validGrades++;
+                }
+            }
+
+            if (validGrades === 0) {
+                document.getElementById("result").innerText = "Please enter at least one valid grade.";
+                return;
+            }
+
+            const gpa = totalPoints / validGrades;
+
+            document.getElementById("result").innerText = `Your GPA is: ${gpa.toFixed(2)}`;
+        }
+    </script>
+</body>
+
+</html>
